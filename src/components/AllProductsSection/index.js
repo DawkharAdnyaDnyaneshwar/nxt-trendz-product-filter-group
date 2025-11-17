@@ -94,8 +94,12 @@ class AllProductsSection extends Component {
 
     // TODO: Update the code to get products with filters applied
 
-    const {activeOptionId, activeCategoryId, activeRatingId, searchInput} =
-      this.state
+    const {
+      activeOptionId,
+      activeCategoryId,
+      activeRatingId,
+      searchInput,
+    } = this.state
     const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`
     const options = {
       headers: {
@@ -137,30 +141,29 @@ class AllProductsSection extends Component {
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png"
             className="no-product-img"
-            alt="no product"
+            alt="no products"
           />
-          <p className="no-product">No Products found</p>
+          <h2 className="no-product">No Products found</h2>
           <p className="no-product-description">
-            We could not found any product.Try other filters.
+            We could not find any products. Try other filters.
           </p>
         </div>
       )
-    } else {
-      return (
-        <div className="all-products-container">
-          <ProductsHeader
-            activeOptionId={activeOptionId}
-            sortbyOptions={sortbyOptions}
-            changeSortby={this.changeSortby}
-          />
-          <ul className="products-list">
-            {productsList.map(product => (
-              <ProductCard productData={product} key={product.id} />
-            ))}
-          </ul>
-        </div>
-      )
     }
+    return (
+      <div className="all-products-container">
+        <ProductsHeader
+          activeOptionId={activeOptionId}
+          sortbyOptions={sortbyOptions}
+          changeSortby={this.changeSortby}
+        />
+        <ul className="products-list">
+          {productsList.map(product => (
+            <ProductCard productData={product} key={product.id} />
+          ))}
+        </ul>
+      </div>
+    )
   }
 
   renderLoader = () => (
@@ -200,8 +203,12 @@ class AllProductsSection extends Component {
     }
   }
 
-  onChangeSearch = event => {
-    this.setState({searchInput: event.target.value}, this.getProducts)
+  onChangeSearch = value => {
+    this.setState({searchInput: value})
+  }
+
+  onSearchSubmit = () => {
+    this.getProducts()
   }
 
   onClickCategory = id => {
@@ -228,6 +235,7 @@ class AllProductsSection extends Component {
             ratingsList={ratingsList}
             categoryOptions={categoryOptions}
             onChangeSearch={this.onChangeSearch}
+            onSearchSubmit={this.onSearchSubmit}
             onClickRating={this.onClickRating}
             onClickCategory={this.onClickCategory}
             clearFilter={this.clearFilter}

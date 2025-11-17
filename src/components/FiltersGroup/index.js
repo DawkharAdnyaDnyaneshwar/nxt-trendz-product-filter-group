@@ -5,6 +5,7 @@ const FiltersGroup = props => {
     ratingsList,
     categoryOptions,
     onChangeSearch,
+    onSearchSubmit,
     onClickRating,
     onClickCategory,
     clearFilter,
@@ -13,8 +14,14 @@ const FiltersGroup = props => {
     searchInput,
   } = props
 
-  const changeSearchValue = event => {
-    onChangeSearch(event)
+  const onPressEnter = event => {
+    if (event.key === 'Enter') {
+      onSearchSubmit()
+    }
+  }
+
+  const onChangeSearchValue = event => {
+    onChangeSearch(event.target.value)
   }
 
   const changeCategory = event => {
@@ -35,44 +42,50 @@ const FiltersGroup = props => {
         type="search"
         className="input-el"
         value={searchInput}
-        onChange={changeSearchValue}
+        placeholder="Search"
+        onKeyDown={onPressEnter}
+        onChange={onChangeSearchValue}
       />
       <h2 className="filter-heading">Category</h2>
-        <ul className="list">
-          {categoryOptions.map(eachItem => (
-            <li
-              id={eachItem.categoryId}
+      <ul className="list">
+        {categoryOptions.map(eachItem => (
+          <li id={eachItem.categoryId} onClick={changeCategory}>
+            <p
               className={
                 eachItem.categoryId === activeCategoryId
                   ? 'list-item active'
                   : 'list-item'
               }
-              onClick={changeCategory}
             >
               {eachItem.name}
-            </li>
-          ))}
-        </ul>
-        <h2 className="filter-heading">Rating</h2>
-        <ul className="list">
-          {ratingsList.map(eachItem => (
-            <li
-              id={eachItem.ratingId}
+            </p>
+          </li>
+        ))}
+      </ul>
+      <h2 className="filter-heading">Rating</h2>
+      <ul className="list">
+        {ratingsList.map(eachItem => (
+          <li id={eachItem.ratingId} onClick={changeRating}>
+            <img
+              src={eachItem.imageUrl}
+              alt={`rating ${eachItem.ratingId}`}
+              className="rating-img"
+            />
+            <p
               className={
-                eachItem.ratingId === activeRatingId ? 'list-item active' : 'list-item'
+                eachItem.ratingId === activeRatingId
+                  ? 'list-item active'
+                  : 'list-item'
               }
-              onClick={changeRating}
             >
-              <img
-                src={eachItem.imageUrl}
-                alt="rating"
-                className="rating-img"
-              />
-              <p>&up</p>
-            </li>
-          ))}
-        </ul>
-      <button type="button" className="cear-filter-btn" onClick={onClickBtn}>Clear Filter</button>
+              & up
+            </p>
+          </li>
+        ))}
+      </ul>
+      <button type="button" className="clear-filter-btn" onClick={onClickBtn}>
+        Clear Filters
+      </button>
     </div>
   )
 }
