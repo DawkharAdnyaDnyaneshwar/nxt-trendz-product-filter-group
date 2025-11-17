@@ -8,7 +8,54 @@
     max-width: 350px;
     margin-top: 48px;
     flex-shrink: 0;
+    padding: 20px;
   }
 }
 
-/* Write your CSS here */
+.input-el {
+  background-color: #f3f5f7;
+  height: 40px;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.filter-heading {
+  color: #12022f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rating-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-item {
+  font-size: 14px;
+  color: #475569;
+}
+
+.active {
+  color: #0967d2;
+}
+
+.rating-img {
+  width: 50%;
+}
+
+.clear-filter-btn {
+  font-size: 14px;
+  color: #0967d2;
+  border: 2px solid #0967d2;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
